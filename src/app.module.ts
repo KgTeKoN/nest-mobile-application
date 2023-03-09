@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AdminModule } from './api/admin/admin.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       isGlobal: true,
     }),
     MorganModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
