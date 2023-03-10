@@ -1,8 +1,6 @@
-export interface Admin {
-  id: number;
-  email?: string;
+import { Admin } from '@prisma/client';
+
+export interface IAdmin
+  extends Pick<Admin, 'id' | 'email' | 'firstName' | 'lastName' | 'isSuper'> {
   password?: string;
-  firstName?: string;
-  lastName?: string;
-  isSuper?: boolean;
 }
