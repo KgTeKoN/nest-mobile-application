@@ -31,7 +31,10 @@ export class AdminController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateAdminDto: UpdateAdminDto,
+  ) {
     return this.adminService.update(+id, updateAdminDto);
   }
 

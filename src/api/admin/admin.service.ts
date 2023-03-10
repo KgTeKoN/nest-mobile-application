@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { Admin, Prisma } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
+import { AdminRepo } from './admin.repo';
 
 @Injectable()
 export class AdminService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private adminRepo: AdminRepo) {}
 
   async create(createAdminDto: CreateAdminDto) {
     return 'This action adds a new admin';
   }
 
   async findAll() {
-    return this.prisma.admin.findMany();
+    return this.adminRepo.findAll();
   }
 
   async findOne(id: number) {
