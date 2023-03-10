@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AdminModule } from './api/admin/admin.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AdminModule } from './api/admin/admin.module';
       provide: APP_INTERCEPTOR,
       useClass: MorganInterceptor('dev'),
     },
+    PrismaService,
   ],
 })
 export class AppModule {}
