@@ -6,7 +6,7 @@ import { IAdmin } from './admin.interfaces';
 export class AdminRepo {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<IAdmin[]> {
+  async findAll(): Promise<IAdmin[] | null> {
     return this.prisma.admin.findMany({
       select: {
         id: true,
