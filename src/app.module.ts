@@ -8,6 +8,7 @@ import { AdminModule } from './api/admin/admin.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { CryptoModule } from './crypto/crypto.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
     AdminModule,
     PrismaModule,
     AuthModule,
+    CryptoModule,
   ],
   controllers: [AppController],
   providers: [
