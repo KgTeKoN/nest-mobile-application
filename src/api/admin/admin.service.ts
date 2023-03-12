@@ -3,13 +3,19 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminRepo } from './admin.repo';
 import { getAllAdminDto } from './dto/getAll-admin.dto';
+import { CryptoService } from '../../crypto/crypto.service';
 
 @Injectable()
 export class AdminService {
-  constructor(private adminRepo: AdminRepo) {}
+  constructor(
+    private adminRepo: AdminRepo,
+    private cryptoService: CryptoService,
+  ) {}
 
   async create(createAdminDto: CreateAdminDto) {
-    console.log(createAdminDto);
+    const { email, password, firstName, lastName } = createAdminDto;
+    const hash = await this.cryptoService.createHash(password);
+    const encryptedPassword = await this.cryptoService.encryptData('12345');
     return 'This action adds a new admin';
   }
 

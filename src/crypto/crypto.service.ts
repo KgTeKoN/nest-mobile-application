@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as argon from 'argon2';
-import crypto from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv  } from 'crypto';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -15,9 +15,9 @@ export class CryptoService {
   }
 
   async encryptData(data) {
-    const iv = crypto.randomBytes(16).toString('hex').slice(0, 16);
-    const cipher = crypto.createCipheriv(
-      'aes-256-cbc',
+    const iv = randomBytes(16).toString('hex').slice(0, 16);
+    const cipher = createCipheriv(
+      'aes-256-ctr',
       this.configService.get<string>('SECRET_KEY'),
       iv,
     );
@@ -30,8 +30,8 @@ export class CryptoService {
 
   async deCrypto(encryptedData) {
     const [encryptedString, iv] = encryptedData.split(':');
-    const decipher = crypto.createDecipheriv(
-      'aes-256-cbc',
+    const decipher = createDecipheriv(
+      'aes-256-ctr',
       this.configService.get<string>('SECRET_KEY'),
       iv,
     );
