@@ -20,4 +20,13 @@ export class AdminRepo {
       },
     });
   }
+
+  async create(data) {
+    return this.prisma.admin.create({
+      data,
+      select: {
+        id: true,
+      },
+    });
+  }
 }

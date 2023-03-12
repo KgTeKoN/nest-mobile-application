@@ -13,10 +13,20 @@ export class AdminService {
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
-    const { email, password, firstName, lastName } = createAdminDto;
-    const hash = await this.cryptoService.createHash(password);
-    const encryptedPassword = await this.cryptoService.encryptData('12345');
-    return 'This action adds a new admin';
+    try {
+      const hash = await this.cryptoService.createHash(createAdminDto.password);
+      const encryptedPassword = await this.cryptoService.encryptData(hash);
+      const { id } = await this.adminRepo.create({
+        ...createAdminDto,
+        password: encryptedPassword,
+      });
+      return {
+        success: true,
+        id,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findAll() {
