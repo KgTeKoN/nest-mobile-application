@@ -9,6 +9,7 @@ export class AdminService {
   constructor(private adminRepo: AdminRepo) {}
 
   async create(createAdminDto: CreateAdminDto) {
+    console.log(createAdminDto);
     return 'This action adds a new admin';
   }
 
