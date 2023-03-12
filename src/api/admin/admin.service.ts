@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminRepo } from './admin.repo';
@@ -13,20 +17,20 @@ export class AdminService {
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
-    try {
-      const hash = await this.cryptoService.createHash(createAdminDto.password);
-      const encryptedPassword = await this.cryptoService.encryptData(hash);
-      const { id } = await this.adminRepo.create({
-        ...createAdminDto,
-        password: encryptedPassword,
-      });
-      return {
-        success: true,
-        id,
-      };
-    } catch (error) {
-      throw error;
+    const admin = await this.adminRepo.findOne({ email: createAdminDto.email });
+    if (admin) {
+      throw new BadRequestException('Email already exist');
     }
+    const hash = await this.cryptoService.createHash(createAdminDto.password);
+    const encryptedPassword = await this.cryptoService.encryptData(hash);
+    const { id } = await this.adminRepo.create({
+      ...createAdminDto,
+      password: encryptedPassword,
+    });
+    return {
+      success: true,
+      id,
+    };
   }
 
   async findAll() {

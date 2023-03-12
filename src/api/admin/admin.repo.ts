@@ -29,4 +29,8 @@ export class AdminRepo {
       },
     });
   }
+
+  async findOne(data) {
+    return this.prisma.admin.findUnique({ where: data });
+  }
 }
