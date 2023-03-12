@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminRepo } from './admin.repo';
+import { getAllAdminDto } from './dto/getAll-admin.dto';
 
 @Injectable()
 export class AdminService {
@@ -18,7 +19,7 @@ export class AdminService {
     }
     return {
       success: true,
-      admins: result,
+      admins: result.map((el) => new getAllAdminDto(el)),
     };
   }
 
