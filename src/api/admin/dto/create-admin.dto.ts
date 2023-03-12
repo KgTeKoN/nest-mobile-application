@@ -48,7 +48,7 @@ export class CreateAdminDto {
   @IsOptional()
   @IsString()
   @Matches(new RegExp('^[A-z0-9._]{3,30}$'))
-  lastName: string;
+  lastName?: string;
 
   @IsOptional()
   @IsBoolean()
