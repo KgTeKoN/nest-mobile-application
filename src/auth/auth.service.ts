@@ -27,13 +27,11 @@ export class AuthService {
       throw new ForbiddenException('Credentials incorrect');
     }
     delete admin.password;
-    const secret = this.configService.get<string>('JWT_SECRET_KEY');
-
     const accessToken = await this.jwtService.signAsync(
       { ...admin, role },
       {
         expiresIn: '1h',
-        secret,
+        secret: this.configService.get<string>('JWT_ACCESS_SECRET_KEY'),
       },
     );
 
