@@ -7,12 +7,10 @@ import {
   Param,
   Delete,
   UseGuards,
-  Req,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { Request } from 'express';
 import { AdminGuard, SuperAdminGuard } from '../../auth/guard/jwt.guard';
 
 @Controller('admin')
@@ -27,8 +25,7 @@ export class AdminController {
 
   @UseGuards(AdminGuard)
   @Get()
-  async findAll(@Req() req: Request) {
-    console.log({ user: req.user });
+  async findAll() {
     return this.adminService.findAll();
   }
 

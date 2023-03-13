@@ -20,7 +20,7 @@ export class JwtAdminStrategy extends PassportStrategy(Strategy, 'admin') {
     if (payload.role === 'admin' || payload.role === 'superAdmin') {
       const person = await this.adminRepo.findOne({ id: payload.id });
       if (!person) return null;
-      return person;
+      return { ...person, role: payload.role };
     }
     return null;
   }
