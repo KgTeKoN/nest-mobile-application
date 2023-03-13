@@ -17,7 +17,7 @@ import { AdminGuard, SuperAdminGuard } from '../../auth/guard/jwt.guard';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  // @UseGuards(SuperAdminGuard)
+  @UseGuards(SuperAdminGuard)
   @Post()
   async create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
