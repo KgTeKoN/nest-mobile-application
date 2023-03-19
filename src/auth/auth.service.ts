@@ -5,6 +5,7 @@ import { CryptoService } from '../crypto/crypto.service';
 import * as argon from 'argon2';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { AdminDto } from '../api/admin/dto/admin.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,18 +27,27 @@ export class AuthService {
     if (!pwMatches) {
       throw new ForbiddenException('Credentials incorrect');
     }
-    delete admin.password;
+    const adminDto = new AdminDto(admin);
     const accessToken = await this.jwtService.signAsync(
-      { ...admin, role },
+      { ...adminDto, role },
       {
         expiresIn: '1h',
         secret: this.configService.get<string>('JWT_ACCESS_SECRET_KEY'),
       },
     );
+    const refreshToken = await this.jwtService.signAsync(
+      { ...adminDto, role },
+      {
+        expiresIn: '1h',
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+      },
+    );
+    await this.adminRepo.update({ id: adminDto.id }, { refreshToken });
 
     return {
       success: true,
       accessToken,
+      refreshToken,
     };
   }
 }

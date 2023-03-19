@@ -6,7 +6,7 @@ import {
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminRepo } from './admin.repo';
-import { getAllAdminDto } from './dto/getAll-admin.dto';
+import { AdminDto } from './dto/admin.dto';
 import { CryptoService } from '../../crypto/crypto.service';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class AdminService {
     }
     return {
       success: true,
-      admins: result.map((el) => new getAllAdminDto(el)),
+      admins: result.map((el) => new AdminDto(el)),
     };
   }
 

@@ -15,6 +15,7 @@ model Admin {
   lastName  String?
   isSuper   Boolean @default(false)
   isDeleted Boolean  @default(false)
+  refreshToken String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

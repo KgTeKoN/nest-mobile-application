@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { getAllAdminDto } from './getAll-admin.dto';
+import { AdminDto } from './admin.dto';
 
 export class createResponse {
   @ApiProperty()
@@ -14,5 +14,5 @@ export class findAllResponse {
   success: boolean;
 
   @ApiProperty()
-  admins: getAllAdminDto[];
+  admins: AdminDto[];
 }

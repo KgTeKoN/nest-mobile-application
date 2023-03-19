@@ -1,12 +1,12 @@
 import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { getAllAdminDto } from './dto/getAll-admin.dto';
+import { AdminDto } from './dto/admin.dto';
 
 @Injectable()
 export class AdminRepo {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<getAllAdminDto[] | null> {
+  async findAll(): Promise<AdminDto[] | null> {
     return this.prisma.admin.findMany({
       where: {
         isDeleted: false,
@@ -17,6 +17,7 @@ export class AdminRepo {
         firstName: true,
         lastName: true,
         isSuper: true,
+        createdAt: true,
       },
     });
   }
@@ -32,5 +33,9 @@ export class AdminRepo {
 
   async findOne(data) {
     return this.prisma.admin.findUnique({ where: data });
+  }
+
+  async update(filter, data) {
+    return this.prisma.admin.update({ where: filter, data });
   }
 }
