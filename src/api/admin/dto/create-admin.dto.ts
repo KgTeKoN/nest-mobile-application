@@ -8,14 +8,17 @@ import {
   Length,
   Matches,
 } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateAdminDto {
+  @ApiProperty({ example: 'testemail@gmail.com' })
   @IsDefined()
   @IsString()
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty({ example: 'Password7!' })
   @IsDefined()
   @IsString()
   @IsNotEmpty()
@@ -40,16 +43,19 @@ export class CreateAdminDto {
   )
   password: string;
 
+  @ApiProperty({ example: 'Andrii' })
   @IsDefined()
   @IsString()
   @Matches(new RegExp('^[A-z0-9._]{3,30}$'))
   firstName: string;
 
+  @ApiPropertyOptional({ example: 'Siromaha' })
   @IsOptional()
   @IsString()
   @Matches(new RegExp('^[A-z0-9._]{3,30}$'))
   lastName?: string;
 
+  @ApiPropertyOptional({ example: true })
   @IsOptional()
   @IsBoolean()
   isSuper?: boolean;
