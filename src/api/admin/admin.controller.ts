@@ -21,11 +21,13 @@ import {
   ApiResponse,
   ApiSecurity,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { createResponse, findAllResponse } from './dto/swagger.dto';
+import { CreateResponseDto, FindAllResponse } from './dto/swagger.dto';
 
 @ApiTags('Admin')
 @Controller('admin')
+@ApiUnauthorizedResponse({ description: 'Unauthorized' })
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -34,7 +36,7 @@ export class AdminController {
   @ApiOperation({ summary: 'Create admin' })
   @ApiSecurity('superAdmin')
   @ApiBody({ type: CreateAdminDto })
-  @ApiCreatedResponse({ type: createResponse })
+  @ApiCreatedResponse({ type: CreateResponseDto })
   @ApiBadRequestResponse({ description: 'Email already exist' })
   async create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
@@ -44,7 +46,7 @@ export class AdminController {
   @Get()
   @ApiOperation({ summary: 'Get all admins' })
   @ApiSecurity('admin')
-  @ApiResponse({ status: 200, type: findAllResponse })
+  @ApiResponse({ status: 200, type: FindAllResponse })
   @ApiNotFoundResponse({ description: 'Admins not found' })
   async findAll() {
     return this.adminService.findAll();

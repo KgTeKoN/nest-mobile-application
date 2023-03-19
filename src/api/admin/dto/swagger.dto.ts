@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AdminDto } from './admin.dto';
 
-export class createResponse {
+export class CreateResponseDto {
   @ApiProperty()
   success: boolean;
 
@@ -9,7 +9,7 @@ export class createResponse {
   id: number;
 }
 
-export class findAllResponse {
+export class FindAllResponse {
   @ApiProperty()
   success: boolean;
 
