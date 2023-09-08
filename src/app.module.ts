@@ -4,6 +4,11 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AdminModule } from './api/admin/admin.module';
+import { PrismaService } from './prisma/prisma.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
+import { CryptoModule } from './crypto/crypto.module';
 
 @Module({
   imports: [
@@ -12,6 +17,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       isGlobal: true,
     }),
     MorganModule,
+    AdminModule,
+    PrismaModule,
+    AuthModule,
+    CryptoModule,
   ],
   controllers: [AppController],
   providers: [
@@ -20,6 +29,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: MorganInterceptor('dev'),
     },
+    PrismaService,
   ],
 })
 export class AppModule {}
